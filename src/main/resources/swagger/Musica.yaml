@@ -1,0 +1,327 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "Musica App"
+  description: 'API responsável pelo controle de informações de músicas.'
+tags:
+  - name: music-api-impl
+    description: Operações de controle de Músicas
+paths:
+  "/v1/musicas":
+    post:
+      tags:
+        - music-api-impl
+      summary: "Cadastrar Música"
+      description: "Realizar o cadastro de Música."
+      operationId: "cadastrarMusica"
+      requestBody:
+        description: "Objeto de Entrada para o cadastro de uma música."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MusicaPostRequest"
+      responses:
+        "201":
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Musica"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - music-api-impl
+      summary: "Listar Músicas"
+      description: "Realizar a listagem de Músicas."
+      operationId: "listarMusicas"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MusicaArray"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/v1/musicas/{codigo}":
+    put:
+      tags:
+        - music-api-impl
+      summary: "Atualizar Música"
+      description: "Realizar a atualização de Música."
+      operationId: "atualizarMusica"
+      parameters:
+        - in: path
+          name: "codigo"
+          description: "Código Identificador de uma Música"
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: "Objeto de Entrada para a atualização de uma música."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MusicaPutRequest"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DetalheMusica"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - music-api-impl
+      summary: "Excluir Música"
+      description: "Realizar a exclusão de uma Música."
+      operationId: "excluirMusica"
+      parameters:
+        - in: path
+          name: "codigo"
+          description: "Código Identificador de uma Música"
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: "No Content"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/v1/musicas/{nome}":
+    get:
+      tags:
+        - music-api-impl
+      summary: "Consultar Músicas"
+      description: "Realizar a consulta de Músicas."
+      operationId: "consultarMusicas"
+      parameters:
+        - in: path
+          name: "nome"
+          description: "Nome da Música"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DetalheMusicaArray"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    DetalheMusica:
+      description: "Objeto com as informações detalhadas de uma música"
+      type: object
+      properties:
+        codigo:
+          description: "Código Identificador da Música"
+          type: string
+          format: uuid
+        nome:
+          description: "Nome da Música"
+          type: string
+        artista:
+          description: "Nome do Artista"
+          type: string
+        lancamento:
+          description: "Data em que a música foi lançada"
+          type: string
+          format: date
+      additionalProperties: false
+    DetalheMusicaArray:
+      description: "Objeto Array de Detalhes de Músicas"
+      type: array
+      items:
+        $ref: "#/components/schemas/DetalheMusica"
+    Error:
+      description: "Error"
+      type: object
+      properties:
+        httpCode:
+          description: "HTTP Code. ex:  400, 401, 404."
+          type: integer
+        httpMessage:
+          description: "HTTP Status Message. ex: Bad Request, Unauthorized, Not Found."
+          type: string
+        description:
+          description: "Descrição do Erro"
+          type: string
+        invalidParameters:
+          $ref: "#/components/schemas/InvalidParametersArray"
+      additionalProperties: false
+    InvalidParameters:
+      description: "InvalidParameters"
+      type: object
+      properties:
+        name:
+          description: "Nome do Parâmetro"
+          type: string
+        description:
+          description: "Descrição do Parâmetro Inválido"
+          type: string
+    InvalidParametersArray:
+      description: "InvalidParametersArray"
+      type: array
+      items:
+        $ref: "#/components/schemas/InvalidParameters"
+    Musica:
+      description: "Objeto com as informações de uma música"
+      type: object
+      properties:
+        nome:
+          description: "Nome da Música"
+          type: string
+        artista:
+          description: "Nome do Artista"
+          type: string
+      additionalProperties: false
+    MusicaArray:
+      description: "Objeto Array de Musicas"
+      type: array
+      items:
+        $ref: "#/components/schemas/Musica"
+    MusicaPostRequest:
+      description: "Objeto de Entrada para o cadastro de uma música"
+      type: object
+      properties:
+        nome:
+          description: "Nome da Música"
+          type: string
+        artista:
+          description: "Nome do Artista"
+          type: string
+        lancamento:
+          description: "Data em que a música foi lançada"
+          type: string
+          format: date
+      additionalProperties: false
+    MusicaPutRequest:
+      description: "Objeto de Entrada para a atualização de uma música"
+      type: object
+      properties:
+        nome:
+          description: "Nome da Música"
+          type: string
+        artista:
+          description: "Nome do Artista"
+          type: string
+        lancamento:
+          description: "Data em que a música foi lançada"
+          type: string
+          format: date
+      additionalProperties: false
