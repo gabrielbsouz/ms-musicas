@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Musica"
+                $ref: "#/components/schemas/DetalheMusica"
         "400":
           description: "Bad Request"
           content:
@@ -231,7 +231,6 @@ components:
         codigo:
           description: "Código Identificador da Música"
           type: string
-          format: uuid
         nome:
           description: "Nome da Música"
           type: string

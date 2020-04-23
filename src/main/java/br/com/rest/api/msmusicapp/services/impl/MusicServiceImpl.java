@@ -15,6 +15,12 @@ public class MusicServiceImpl implements MusicService {
     private MusicRepository repository;
 
     @Override
+    public Music cadastrarMusica(Music music) {
+
+        return repository.save(music);
+    }
+
+    @Override
     public List<Music> listarMusicas() {
 
         return repository.findAll();

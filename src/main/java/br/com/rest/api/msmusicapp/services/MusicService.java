@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface MusicService {
 
+    Music cadastrarMusica(Music music);
+
     List<Music> listarMusicas();
 }
