@@ -238,6 +238,9 @@ components:
         artista:
           description: "Nome do Artista"
           type: string
+        genero:
+          description: "Genero da Música"
+          type: string
         lancamento:
           description: "Data em que a música foi lançada"
           type: string
@@ -305,6 +308,9 @@ components:
         artista:
           description: "Nome do Artista"
           type: string
+        genero:
+          description: "Genero da Música"
+          type: string
         lancamento:
           description: "Data em que a música foi lançada"
           type: string
@@ -319,6 +325,9 @@ components:
           type: string
         artista:
           description: "Nome do Artista"
+          type: string
+        genero:
+          description: "Genero da Música"
           type: string
         lancamento:
           description: "Data em que a música foi lançada"
